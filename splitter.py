@@ -30,8 +30,10 @@ def chop_audio(podcast):
         print(extract)
         extract.export( "./testDump/harmoning"+str(x)+".wav", format="wav")
 
-    # startTimeLastChunk = (lengths[0]-1)*thirty_seconds
-    # endTimeLastChunk = 
+    startTimeLastChunk = (lengths[0]-1)*thirty_seconds
+    endTimeLastChunk = len(podcast)
+    lastChunk = podcast[startTimeLastChunk:endTimeLastChunk]
+    lastChunk.export( "./testDump/harmoning"+str(lengths[0]-1)+".wav", format="wav")
 
 
 

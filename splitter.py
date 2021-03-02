@@ -8,15 +8,21 @@ podcast = AudioSegment.from_wav("../htown/samples/20120704-Achieve Weightlessnes
 
 
 
-def segment_count():
+def segment_count(podcast):
     thirty_seconds = 30*1000
+
     podcast_length = len(podcast)
     segment_count = math.ceil(podcast_length / thirty_seconds)
     print(segment_count)
+    leftovers = (segment_count-(podcast_length / thirty_seconds))*1000
+    print(leftovers)
     first_30_seconds = podcast[:thirty_seconds]
     last_30_seconds = podcast[-30000:]
 
-segment_count()
+    for x in range(0,segment_count-1):
+        print("this is segment " + str(x))
+
+segment_count(podcast)
 
 # halfway_point.export("./sound/harmonSplit1.wav", format="wav")
 # second_half.export("./sound/harmonSplit2.wav", format="wav")

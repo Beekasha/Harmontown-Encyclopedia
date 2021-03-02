@@ -9,27 +9,27 @@ podcast = AudioSegment.from_wav("../htown/samples/20120704-Achieve Weightlessnes
 
 
 def segment_count(podcast):
-    thirty_seconds = 30*1000
+    fifteen_seconds = 15*1000
 
     podcast_length = len(podcast)
-    segment_count = math.ceil(podcast_length / thirty_seconds)
+    segment_count = math.ceil(podcast_length / fifteen_seconds)
     
     return segment_count
 
 
 
 def chop_audio(podcast):
-    thirty_seconds = 30*1000
+    fifteen_seconds = 15*1000
     length = segment_count(podcast)
 
     for x in range(1,length-1):
         print("this is segment " + str(x))
-        startTime = x*thirty_seconds
-        extract = podcast[startTime:(startTime+thirty_seconds)]
+        startTime = x*fifteen_seconds
+        extract = podcast[startTime:(startTime+fifteen_seconds)]
         print(extract)
         extract.export( "./testDump/harmoning"+str(x)+".wav", format="wav")
 
-    startTimeLastChunk = (length-1)*thirty_seconds
+    startTimeLastChunk = (length-1)*fifteen_seconds
     endTimeLastChunk = len(podcast)
     lastChunk = podcast[startTimeLastChunk:endTimeLastChunk]
     lastChunk.export( "./testDump/harmoning"+str(length-1)+".wav", format="wav")

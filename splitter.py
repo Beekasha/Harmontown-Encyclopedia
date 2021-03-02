@@ -1,12 +1,21 @@
 from pydub import AudioSegment
 import math
 
-podcast = AudioSegment.from_wav("../htown/samples/20120704-Achieve Weightlessness (6.16.12).wav")
+pathname="../htown/samples/20120704-Achieve Weightlessness (6.16.12).wav"
+podcast = AudioSegment.from_wav(pathname)
+print(podcast)
+
+
 
 # halfway_point = len(podcast) / 2
 # second_half = podcast[halfway_point:]
 
+def get_podcast_date(pathname):
+    split = pathname.split("-")
+    date = split[0].split("/")[-1]
+    print(date)
 
+get_podcast_date(pathname)
 
 def segment_count(podcast):
     fifteen_seconds = 15*1000
@@ -37,8 +46,10 @@ def chop_audio(podcast):
 
 
 
-# segment_count(podcast)
-chop_audio(podcast)
+
+
+# # Splits Files
+# chop_audio(podcast)
 
 
 # halfway_point.export("./sound/harmonSplit1.wav", format="wav")

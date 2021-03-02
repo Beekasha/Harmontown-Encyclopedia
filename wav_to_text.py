@@ -5,7 +5,7 @@ from pydub import AudioSegment
 # this works
 r = sr.Recognizer()
 
-harvard = sr.AudioFile('./sound/harmonSplit1testTenSecs.wav')
+harvard = sr.AudioFile('./sound/harmonSplit1testTenSecs2.wav')
 with harvard as source:
     audio = r.record(source)
     trans = r.recognize_google(audio)

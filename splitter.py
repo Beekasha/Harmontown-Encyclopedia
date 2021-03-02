@@ -13,16 +13,32 @@ def segment_count(podcast):
 
     podcast_length = len(podcast)
     segment_count = math.ceil(podcast_length / thirty_seconds)
-    print(segment_count)
     leftovers = (segment_count-(podcast_length / thirty_seconds))*1000
-    print(leftovers)
-    first_30_seconds = podcast[:thirty_seconds]
-    last_30_seconds = podcast[-30000:]
+    
+    return [segment_count, leftovers]
 
-    for x in range(0,segment_count-1):
+
+
+def chop_audio(podcast):
+    thirty_seconds = 30*1000
+    lengths = segment_count(podcast)
+
+    for x in range(0,lengths[0]-1):
         print("this is segment " + str(x))
+        startTime = x*thirty_seconds
+        extract = podcast[startTime:(startTime+thirty_seconds)]
+        print(extract)
+        extract.export( "./testDump/harmoning"+str(x)+".wav", format="wav")
 
-segment_count(podcast)
+    # startTimeLastChunk = (lengths[0]-1)*thirty_seconds
+    # endTimeLastChunk = 
+
+
+
+
+# segment_count(podcast)
+chop_audio(podcast)
+
 
 # halfway_point.export("./sound/harmonSplit1.wav", format="wav")
 # second_half.export("./sound/harmonSplit2.wav", format="wav")

@@ -1,5 +1,5 @@
 import speech_recognition as sr
-from os import path
+import os
 from pydub import AudioSegment
 
 # # this works
@@ -16,19 +16,25 @@ from pydub import AudioSegment
 
 
 
-
-
-
 def transcribe(audio_path):
     r = sr.Recognizer()
 
     harvard = sr.AudioFile(audio_path)
     with harvard as source:
+        r.adjust_for_ambient_noise(source)
         audio = r.record(source)
         trans = r.recognize_google(audio)
         print(trans)
 
-transcribe('./sound/harmonSplit1testFirst30.wav')
+transcribe('./testDump/harmoning30.wav')
+
+
+# for filename in os.listdir('./testDump'):
+    
+#     if filename.endswith(".wav"):
+#         print("this is " + filename)
+#         transcribe('./testDump/' + filename)
+
 
 
 

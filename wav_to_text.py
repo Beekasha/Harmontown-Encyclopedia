@@ -2,14 +2,35 @@ import speech_recognition as sr
 from os import path
 from pydub import AudioSegment
 
-# this works
-r = sr.Recognizer()
+# # this works
+# r = sr.Recognizer()
 
-harvard = sr.AudioFile('./sound/harmonSplit1testFirst30.wav')
-with harvard as source:
-    audio = r.record(source)
-    trans = r.recognize_google(audio)
-    print(trans)
+# harvard = sr.AudioFile('./sound/harmonSplit1testFirst30.wav')
+# with harvard as source:
+#     audio = r.record(source)
+#     trans = r.recognize_google(audio)
+#     print(trans)
+
+
+
+
+
+
+
+
+
+def transcribe(audio_path):
+    r = sr.Recognizer()
+
+    harvard = sr.AudioFile(audio_path)
+    with harvard as source:
+        audio = r.record(source)
+        trans = r.recognize_google(audio)
+        print(trans)
+
+transcribe('./sound/harmonSplit1testFirst30.wav')
+
+
 
 
 

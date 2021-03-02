@@ -2,7 +2,7 @@ import os
 from pydub import AudioSegment
 
 # path to audio files directory
-path = "../htown/Harmontown/"
+path = "../htown/samples"
 
 #Change working directory
 os.chdir(path)
@@ -17,3 +17,4 @@ for file in audio_files:
        mp3_sound = AudioSegment.from_mp3(file)
        #rename them using the old name + ".wav"
        mp3_sound.export("{0}.wav".format(name), format="wav")
+

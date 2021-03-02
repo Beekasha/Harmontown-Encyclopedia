@@ -7,9 +7,6 @@ print(podcast)
 
 
 
-# halfway_point = len(podcast) / 2
-# second_half = podcast[halfway_point:]
-
 def get_podcast_date(pathname):
     split = pathname.split("-")
     date = split[0].split("/")[-1]

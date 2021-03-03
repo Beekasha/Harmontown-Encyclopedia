@@ -80,19 +80,5 @@ def chop_wav(pathname):
     lastChunk = podcast[startTimeLastChunk:endTimeLastChunk]
     lastChunk.export( f'./sound/split-audio/{date}/{date}-{str(length-1)}.wav', format="wav")
 
-
-chop_wav('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
-
-
-# # Splits Files
-# chop_audio(podcast)
-
-
-# halfway_point.export("./sound/harmonSplit1.wav", format="wav")
-# second_half.export("./sound/harmonSplit2.wav", format="wav")
-
-# # correctly exports
-# first_30_seconds.export("./sound/harmonSplit1testFirst30.wav", format="wav")
-# last_30_seconds.export("./sound/harmonSplit1testLast30.wav", format="wav")
-
-
+# # must make folders first
+# chop_wav('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')

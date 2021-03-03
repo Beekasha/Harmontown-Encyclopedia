@@ -64,18 +64,20 @@ def chop_audio(pathname):
     podcast = AudioSegment.from_wav(pathname)
     fifteen_seconds = 15*1000
     length = segment_count(podcast)
+    date = get_podcast_date(pathname)
 
     for x in range(1,length-1):
         print("this is segment " + str(x))
         startTime = x*fifteen_seconds
         extract = podcast[startTime:(startTime+fifteen_seconds)]
-        print(extract)
-        extract.export( "./testDump/harmoning"+str(x)+".wav", format="wav")
+        extract.export(f'./testDump/{date}-{str(x)}.wav', format="wav")
+        
 
+    # last chunk will most likely not be 15 seconds in length
     startTimeLastChunk = (length-1)*fifteen_seconds
     endTimeLastChunk = len(podcast)
     lastChunk = podcast[startTimeLastChunk:endTimeLastChunk]
-    lastChunk.export( "./testDump/harmoning"+str(length-1)+".wav", format="wav")
+    lastChunk.export( f'./testDump/{date}-{str(length-1)}.wav', format="wav")
 
 
 chop_audio('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')

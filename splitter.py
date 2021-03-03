@@ -16,13 +16,11 @@ def get_podcast_date(pathname):
     return date
 
 
-# Create a new directory titled with the date
+# Creates new directory titled with the date
 def create_new_directory(pathname):
     date = get_podcast_date(pathname)
     os.mkdir(f'./sound/split-audio/{date}')
 
-    print(str(date))
-    print(f'./sound/split-audio/{date}')
 
 
 # Counts how many 15sec. segments we need to slice the audio into
@@ -33,6 +31,9 @@ def segment_count(podcast):
     segment_count = math.ceil(podcast_length / fifteen_seconds)
     
     return segment_count
+
+
+
 
 
 # Chops up the audio into multiple smaller files

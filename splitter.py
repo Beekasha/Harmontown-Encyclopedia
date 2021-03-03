@@ -1,21 +1,25 @@
 from pydub import AudioSegment
 import math
+
+from dotenv import load_dotenv
+load_dotenv()
+
 import os
 
 pathname="../htown/samples/20120704-Achieve Weightlessness (6.16.12).wav"
 podcast = AudioSegment.from_wav(pathname)
 
 
-# cycle through directory of audio
-def get_current_pathname():
+# creates all directories for new audio
+def create_all_directories():
     # directory of all the original MP3 files
-    directory = '../htown/Harmontown/'
+    directory = os.environ.get("directory-of-original-audio")
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         if filename.endswith(".mp3"): 
             path = os.path.join(directory, filename)
             print(path)
-            create_new_directory(path)
+            # create_new_directory(path)
       
 
 
@@ -73,7 +77,7 @@ def chop_audio(podcast):
     lastChunk.export( "./testDump/harmoning"+str(length-1)+".wav", format="wav")
 
 
-get_current_pathname()
+create_all_directories()
 
 
 

@@ -1,19 +1,31 @@
 from pydub import AudioSegment
 import math
+import os
 
 pathname="../htown/samples/20120704-Achieve Weightlessness (6.16.12).wav"
 podcast = AudioSegment.from_wav(pathname)
-print(podcast)
 
 
 
+
+
+# Returns date of episode from pathname
 def get_podcast_date(pathname):
     split = pathname.split("-")
     date = split[0].split("/")[-1]
-    print(date)
+    return date
 
-get_podcast_date(pathname)
 
+# Create a new directory titled with the date
+def create_new_directory(pathname):
+    date = get_podcast_date(pathname)
+    os.mkdir(f'./sound/split-audio/{date}')
+
+    print(str(date))
+    print(f'./sound/split-audio/{date}')
+
+
+# Counts how many 15sec. segments we need to slice the audio into
 def segment_count(podcast):
     fifteen_seconds = 15*1000
 
@@ -23,7 +35,7 @@ def segment_count(podcast):
     return segment_count
 
 
-
+# Chops up the audio into multiple smaller files
 def chop_audio(podcast):
     fifteen_seconds = 15*1000
     length = segment_count(podcast)
@@ -41,7 +53,7 @@ def chop_audio(podcast):
     lastChunk.export( "./testDump/harmoning"+str(length-1)+".wav", format="wav")
 
 
-
+create_new_directory(pathname)
 
 
 

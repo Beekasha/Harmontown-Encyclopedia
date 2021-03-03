@@ -26,18 +26,18 @@ def transcribe(audio_path):
         trans = r.recognize_google(audio)
         print(trans)
 
-# transcribe('./testDump/harmoning101.wav')
+transcribe('./testDump/compressedHarmon.wav')
 
 
 
 
 
-
-for filename in os.listdir('./testDump'):
+# # Runs transcription for all files in directory
+# for filename in os.listdir('./testDump'):
     
-    if filename.endswith(".wav"):
-        print("this is " + filename)
-        transcribe('./testDump/' + filename)
+#     if filename.endswith(".wav"):
+#         print("this is " + filename)
+#         transcribe('./testDump/' + filename)
 
 
 

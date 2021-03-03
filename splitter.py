@@ -7,7 +7,7 @@ load_dotenv()
 import os
 
 pathname="../htown/samples/20120704-Achieve Weightlessness (6.16.12).wav"
-podcast = AudioSegment.from_wav(pathname)
+# podcast = AudioSegment.from_wav(pathname)
 
 
 # creates all directories for new audio
@@ -60,7 +60,8 @@ def segment_count(podcast):
 
 
 # Chops up the audio into multiple smaller files
-def chop_audio(podcast):
+def chop_audio(pathname):
+    podcast = AudioSegment.from_wav(pathname)
     fifteen_seconds = 15*1000
     length = segment_count(podcast)
 
@@ -77,7 +78,7 @@ def chop_audio(podcast):
     lastChunk.export( "./testDump/harmoning"+str(length-1)+".wav", format="wav")
 
 
-create_all_directories()
+chop_audio('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
 
 
 

@@ -60,7 +60,7 @@ def segment_count(podcast):
 
 
 # Chops up the audio into multiple smaller files
-def chop_audio(pathname):
+def chop_wav(pathname):
     podcast = AudioSegment.from_wav(pathname)
     fifteen_seconds = 15*1000
     length = segment_count(podcast)
@@ -80,7 +80,7 @@ def chop_audio(pathname):
     lastChunk.export( f'./testDump/{date}-{str(length-1)}.wav', format="wav")
 
 
-chop_audio('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
+chop_wav('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
 
 
 

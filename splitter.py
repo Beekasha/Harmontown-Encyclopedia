@@ -18,7 +18,6 @@ def create_all_directories():
         filename = os.fsdecode(file)
         if filename.endswith(".mp3"): 
             path = os.path.join(directory, filename)
-            print(path)
             create_new_directory(path)
       
 
@@ -82,3 +81,13 @@ def chop_wav(pathname):
 
 # # must make folders first
 # chop_wav('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
+def split(directory):
+    create_all_directories()
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        if filename.endswith(".wav"): 
+            print(filename)
+            chop_wav(f'{directory}/{filename}')
+
+      
+split(os.environ.get("directory-of-test"))

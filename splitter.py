@@ -6,6 +6,19 @@ pathname="../htown/samples/20120704-Achieve Weightlessness (6.16.12).wav"
 podcast = AudioSegment.from_wav(pathname)
 
 
+# cycle through directory of audio
+def get_current_pathname():
+    # directory of all the original MP3 files
+    directory = '../htown/Harmontown/'
+    for file in os.listdir(directory):
+        filename = os.fsdecode(file)
+        if filename.endswith(".mp3"): 
+            path = os.path.join(directory, filename)
+            print(path)
+            create_new_directory(path)
+      
+
+
 
 
 
@@ -19,8 +32,14 @@ def get_podcast_date(pathname):
 # Creates new directory titled with the date
 def create_new_directory(pathname):
     date = get_podcast_date(pathname)
-    os.mkdir(f'./sound/split-audio/{date}')
 
+    # protects against same date
+    try:
+        os.mkdir(f'./sound/split-audio/{date}')
+    except OSError as error:
+        print(error)
+        # appends a '2' to the file if the date already exists (aka Denver and KC)
+        os.mkdir(f'./sound/split-audio/{date}2')
 
 
 # Counts how many 15sec. segments we need to slice the audio into
@@ -54,7 +73,7 @@ def chop_audio(podcast):
     lastChunk.export( "./testDump/harmoning"+str(length-1)+".wav", format="wav")
 
 
-create_new_directory(pathname)
+get_current_pathname()
 
 
 

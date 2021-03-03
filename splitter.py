@@ -81,7 +81,7 @@ def chop_wav(pathname):
 
 # # must make folders first
 # chop_wav('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
-def split(directory):
+def split_all_wav(directory):
     create_all_directories()
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
@@ -90,4 +90,4 @@ def split(directory):
             chop_wav(f'{directory}/{filename}')
 
       
-split(os.environ.get("directory-of-test"))
+split_all_wav(os.environ.get("directory-of-test"))

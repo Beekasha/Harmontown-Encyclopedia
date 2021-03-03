@@ -10,16 +10,16 @@ pathname="../htown/samples/20120704-Achieve Weightlessness (6.16.12).wav"
 # podcast = AudioSegment.from_wav(pathname)
 
 
-# creates all directories for new audio
+# creates all directories for new audio in split-audio
 def create_all_directories():
     # directory of all the original MP3 files
-    directory = os.environ.get("directory-of-original-audio")
+    directory = os.environ.get("directory-of-test")
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         if filename.endswith(".mp3"): 
             path = os.path.join(directory, filename)
             print(path)
-            # create_new_directory(path)
+            create_new_directory(path)
       
 
 
@@ -33,7 +33,8 @@ def get_podcast_date(pathname):
     return date
 
 
-# Creates new directory titled with the date
+
+# Creates new directory titled with the date in split-audio directory
 def create_new_directory(pathname):
     date = get_podcast_date(pathname)
 
@@ -80,8 +81,8 @@ def chop_wav(pathname):
     lastChunk.export( f'./testDump/{date}-{str(length-1)}.wav', format="wav")
 
 
-chop_wav('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
-
+# chop_wav('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
+create_all_directories()
 
 
 # # Splits Files

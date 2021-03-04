@@ -6,6 +6,8 @@ load_dotenv()
 import os
 from pydub import AudioSegment
 
+import json
+
 # # this works
 # r = sr.Recognizer()
 
@@ -65,14 +67,28 @@ def transcribe_all(split_directory):
                 print(filedir)
                 transcribe_wav(filedir)
                 print('\n')
-            
-
-transcribe_all(os.environ.get("split-audio-directory"))
+# transcribe_all(os.environ.get("split-audio-directory"))
 
 
 
 
+def response_to_json(response):
+    text = response['alternative'][0]['transcript']
+    confidence = response['alternative'][0]['confidence']
+    data = {}
+    data['chunk'] = []
+    data['chunk'].append({
+        'text': text,
+        'confidence': confidence,
+    })
 
+    print(data)
+
+
+    # TEST RESPONSE 
+    # {'alternative': [{'transcript': 'is in this room', 'confidence': 0.75383753}, {'transcript': 'is it in this room'}, {'transcript': 'as in this room'}, {'transcript': 'in this room'}, {'transcript': "he's in this room"}], 'final': True}
+
+response_to_json({'alternative': [{'transcript': 'is in this room', 'confidence': 0.75383753}, {'transcript': 'is it in this room'}, {'transcript': 'as in this room'}, {'transcript': 'in this room'}, {'transcript': "he's in this room"}], 'final': True})
 
 
 

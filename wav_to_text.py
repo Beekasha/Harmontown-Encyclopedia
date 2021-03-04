@@ -30,7 +30,7 @@ def transcribe_wav(audio_path):
         trans = r.recognize_google(audio)
         print(trans)
 
-# transcribe_wav('./testDump/compressedHarmon.wav')
+transcribe_wav('./sound/split-audio/20120830/20120830-107.wav')
 
 
 # def transcribe_all(pathname):
@@ -53,9 +53,18 @@ def transcribe_wav(audio_path):
 def transcribe_all(split_directory):
     for subdir, dirs, files in os.walk(split_directory):
         for file in files:
-            print(os.path.join(subdir, file))
+            name, ext = os.path.splitext(file)
+            if ext == ".wav":
+                filedir = os.path.join(subdir, file)
+                filename = (os.path.join(subdir, file)).split("/")[-1]
+                print("Working on:")
+                print(filename)
+                print(filedir)
+                transcribe_wav(filedir)
+                print('\n')
+            
 
-transcribe_all(os.environ.get("split-audio-directory"))
+# transcribe_all(os.environ.get("split-audio-directory"))
 
 
 

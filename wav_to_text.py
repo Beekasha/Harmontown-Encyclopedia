@@ -27,10 +27,13 @@ def transcribe_wav(audio_path):
     with harvard as source:
         r.adjust_for_ambient_noise(source)
         audio = r.record(source)
-        trans = r.recognize_google(audio)
+        trans = r.recognize_google(audio, language='en-US', show_all=True)
         print(trans)
 
-transcribe_wav('./sound/split-audio/20120830/20120830-107.wav')
+# transcribe_wav('./sound/split-audio/20120830/20120830-106.wav')
+
+# Empty?
+# transcribe_wav('./sound/split-audio/20120830/20120830-107.wav')
 
 
 # def transcribe_all(pathname):
@@ -64,7 +67,7 @@ def transcribe_all(split_directory):
                 print('\n')
             
 
-# transcribe_all(os.environ.get("split-audio-directory"))
+transcribe_all(os.environ.get("split-audio-directory"))
 
 
 

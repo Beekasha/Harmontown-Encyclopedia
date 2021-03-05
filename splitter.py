@@ -10,6 +10,43 @@ pathname="../htown/samples/20120704-Achieve Weightlessness (6.16.12).wav"
 # podcast = AudioSegment.from_wav(pathname)
 
 
+
+      
+
+
+
+
+
+# Returns label of episode from pathname
+def get_podcast_label(pathname):
+    # removes '.wav' and makes directory name more clear
+    label = pathname.split("/")[-1][0:-4]
+    print(label)
+    return label
+
+
+# Creates new directory titled with the label in split-audio directory
+def create_new_directory(pathname):
+    label = get_podcast_label(pathname)
+
+    # # protects against same label
+    # try:
+    #     os.mkdir(f'./sound/split-audio/{label}')
+    # except OSError as error:
+    #     print(error)
+    #     # appends a '2' to the file if the label already exists (aka Denver and KC)
+    #     os.mkdir(f'./sound/split-audio/{label}2')
+
+        # protects against same label
+    try:
+        os.mkdir(f'./sound/split-test/{label}')
+    except OSError as error:
+        print(error)
+        # appends a '2' to the file if the label already exists (aka Denver and KC)
+        os.mkdir(f'./sound/split-test/{label}2')
+
+
+
 # creates all directories for new audio in split-audio
 def create_all_directories():
     # directory of all the original MP3 files
@@ -19,31 +56,8 @@ def create_all_directories():
         if filename.endswith(".mp3"): 
             path = os.path.join(directory, filename)
             create_new_directory(path)
-      
 
-
-
-
-
-# Returns date of episode from pathname
-def get_podcast_date(pathname):
-    split = pathname.split("-")
-    date = split[0].split("/")[-1]
-    return date
-
-
-
-# Creates new directory titled with the date in split-audio directory
-def create_new_directory(pathname):
-    date = get_podcast_date(pathname)
-
-    # protects against same date
-    try:
-        os.mkdir(f'./sound/split-audio/{date}')
-    except OSError as error:
-        print(error)
-        # appends a '2' to the file if the date already exists (aka Denver and KC)
-        os.mkdir(f'./sound/split-audio/{date}2')
+create_all_directories()
 
 
 # Counts how many 15sec. segments we need to slice the audio into
@@ -90,4 +104,4 @@ def split_all_wav(directory):
             chop_wav(f'{directory}/{filename}')
 
       
-split_all_wav(os.environ.get("directory-of-test"))
+# split_all_wav(os.environ.get("directory-of-test"))

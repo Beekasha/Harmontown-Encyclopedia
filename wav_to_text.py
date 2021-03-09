@@ -16,7 +16,13 @@ import json
 #     audio = r.record(source)
 #     trans = r.recognize_google(audio)
 #     print(trans)
+big_data = {
+    "Harmontown": {
+        'episodes': [
 
+        ]
+    }
+}
 
 
 
@@ -34,6 +40,8 @@ def transcribe_wav(audio_path):
         return(trans)
 
 # transcribe_wav('./sound/split-audio/20120830/20120830-106.wav')
+# transcribe_wav('./sound/split-audio/20120816-Confessions Of An Alcoholic Mars Rover (8.7.12)/20120816-272.wav')
+
 
 # Empty?
 # transcribe_wav('./sound/split-audio/20120830/20120830-107.wav')
@@ -62,11 +70,21 @@ def transcribe_wav(audio_path):
 
 # THIS NEEDS EP ID NUMS
 def response_to_json(response, episode_id, sequence, title):
-    transcription = response['alternative'][0]['transcript']
-    confidence = response['alternative'][0]['confidence']
-    data = {}
-    data['episodes'] = []
-    data['episodes'].append({
+    print(response)
+    if response != []:
+        transcription = response['alternative'][0]['transcript']
+        if "confidence" in response['alternative'][0]:
+            confidence = response['alternative'][0]['confidence']
+            print("Confidence")
+            print(confidence)
+        else:
+            confidence = "N/A"
+    else:
+        print("confiedence n/a")
+        transcription = "N/A"
+        confidence = "N/A"
+
+    big_data['Harmontown']['episodes'].append({
         'episode-id': episode_id,
         'transcription': transcription,
         'confidence': confidence,
@@ -74,11 +92,11 @@ def response_to_json(response, episode_id, sequence, title):
         'sequence': sequence
     })
 
-    print(data)
-
-
+    print (len(big_data["Harmontown"]["episodes"]))
+    print(big_data)
     # TEST RESPONSE 
     # {'alternative': [{'transcript': 'is in this room', 'confidence': 0.75383753}, {'transcript': 'is it in this room'}, {'transcript': 'as in this room'}, {'transcript': 'in this room'}, {'transcript': "he's in this room"}], 'final': True}
+
 
 # response_to_json({'alternative': [{'transcript': 'is in this room', 'confidence': 0.75383753}, {'transcript': 'is it in this room'}, {'transcript': 'as in this room'}, {'transcript': 'in this room'}, {'transcript': "he's in this room"}], 'final': True})
 # {
@@ -159,7 +177,36 @@ def transcribe_all(split_directory):
                 # response_to_json(response,)
                 ep_id = filename.split("-")[0]
                 seq = filename.split("-")[1].split(".")[0]
-                title = filedir.split("/")[-2]
+                title = filedir.split("/")[-2].split("-")[1]
                 # want to now take this response and pass it off to make json
                 response_to_json(response, ep_id, seq, title)
+
+
+
 transcribe_all(os.environ.get("split-audio-directory"))
+print("FINAL")
+print(big_data)
+
+with open('test.json', 'w') as json_file:
+    json.dump(big_data, json_file)
+
+
+# {
+#     "title": "Harmontown",
+#     "episodes": [
+#         {
+#             "episode-id": "$$$2010292",
+#             "chunks": [
+#                 {
+#                     "location-in-seq": "$$$CU",
+#                     "transcription": "$$$transcription"
+#                     "confidence": "$$$confidence"
+#                 }
+#             ]
+
+#         }
+#         # {episode object}
+#         # {episode object}
+#         # {episode object}
+#     ]
+# }

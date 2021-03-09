@@ -26,6 +26,22 @@ big_data = {
 
 
 
+def create_eps_in_json(directory_name):
+    
+
+
+    for dirname in os.listdir(directory_name):
+        # if path is a directory (gets past the DSTORE)
+        if not os.path.isfile(dirname):
+            print(dirname)
+            episode_id = dirname.split('-')[0]
+            episode_title = dirname.split('-')[1]
+
+            big_data['Harmontown']['episodes'].append({
+                "episode_id": episode_id,
+                "episode_title": episode_title,
+                "chunks": []
+            })
 
 
 def transcribe_wav(audio_path):
@@ -69,7 +85,7 @@ def transcribe_wav(audio_path):
 
 
 # THIS NEEDS EP ID NUMS
-def response_to_json(response, episode_id, sequence, title):
+def response_to_json(response, episode_id, sequence):
     print(response)
     if response != []:
         transcription = response['alternative'][0]['transcript']
@@ -92,6 +108,14 @@ def response_to_json(response, episode_id, sequence, title):
     #     'title': title,
     #     'sequence': sequence
     # })
+
+    for ep in big_data["Harmontown"]["episodes"]:
+        if ep["episode_id"] == episode_id:
+            ep["chunks"].append({
+                "sequence": sequence,
+                "transcription": transcription,
+                "confidence": confidence
+            })
 
     print (len(big_data["Harmontown"]["episodes"]))
     print(big_data)
@@ -153,6 +177,8 @@ def response_to_json(response, episode_id, sequence, title):
 #         print("Transcription: " + r.recognize_google(audio))
 
 def transcribe_all(split_directory):
+    create_eps_in_json(os.environ.get("split-audio-directory"))
+
     for subdir, dirs, files in os.walk(split_directory):
         for file in files:
             name, ext = os.path.splitext(file)
@@ -178,18 +204,17 @@ def transcribe_all(split_directory):
                 # response_to_json(response,)
                 ep_id = filename.split("-")[0]
                 seq = filename.split("-")[1].split(".")[0]
-                title = filedir.split("/")[-2].split("-")[1]
                 # want to now take this response and pass it off to make json
-                response_to_json(response, ep_id, seq, title)
+                response_to_json(response, ep_id, seq)
 
 
 
-# transcribe_all(os.environ.get("split-audio-directory"))
-# print("FINAL")
-# print(big_data)
+transcribe_all(os.environ.get("split-audio-directory"))
+print("FINAL")
+print(big_data)
 
-# with open('test.json', 'w') as json_file:
-#     json.dump(big_data, json_file)
+with open('test.json', 'w') as json_file:
+    json.dump(big_data, json_file)
 
 
 # {
@@ -214,22 +239,7 @@ def transcribe_all(split_directory):
 # }
 
 
-def create_eps_in_json(directory_name):
-    
+# Creates episodes within the big data object
 
-
-    for dirname in os.listdir(directory_name):
-        if not os.path.isfile(dirname):
-            print(dirname)
-            episode_id = dirname.split('-')[0]
-            episode_title = dirname.split('-')[1]
-
-            big_data['Harmontown']['episodes'].append({
-                "episode_id": episode_id,
-                "episode_title": episode_title,
-                "chunks": []
-            })
-
-    print(big_data)
 
 create_eps_in_json('./sound/split-audio')

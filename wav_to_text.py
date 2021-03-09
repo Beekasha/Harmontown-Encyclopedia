@@ -84,13 +84,14 @@ def response_to_json(response, episode_id, sequence, title):
         transcription = "N/A"
         confidence = "N/A"
 
-    big_data['Harmontown']['episodes'].append({
-        'episode-id': episode_id,
-        'transcription': transcription,
-        'confidence': confidence,
-        'title': title,
-        'sequence': sequence
-    })
+    # if big_data['Harmontown'][episodes]
+    # big_data['Harmontown']['episodes'].append({
+    #     'episode-id': episode_id,
+    #     'transcription': transcription,
+    #     'confidence': confidence,
+    #     'title': title,
+    #     'sequence': sequence
+    # })
 
     print (len(big_data["Harmontown"]["episodes"]))
     print(big_data)
@@ -183,12 +184,12 @@ def transcribe_all(split_directory):
 
 
 
-transcribe_all(os.environ.get("split-audio-directory"))
-print("FINAL")
-print(big_data)
+# transcribe_all(os.environ.get("split-audio-directory"))
+# print("FINAL")
+# print(big_data)
 
-with open('test.json', 'w') as json_file:
-    json.dump(big_data, json_file)
+# with open('test.json', 'w') as json_file:
+#     json.dump(big_data, json_file)
 
 
 # {
@@ -196,6 +197,7 @@ with open('test.json', 'w') as json_file:
 #     "episodes": [
 #         {
 #             "episode-id": "$$$2010292",
+#             "episode-title"
 #             "chunks": [
 #                 {
 #                     "location-in-seq": "$$$CU",
@@ -210,3 +212,24 @@ with open('test.json', 'w') as json_file:
 #         # {episode object}
 #     ]
 # }
+
+
+def create_eps_in_json(directory_name):
+    
+
+
+    for dirname in os.listdir(directory_name):
+        if not os.path.isfile(dirname):
+            print(dirname)
+            episode_id = dirname.split('-')[0]
+            episode_title = dirname.split('-')[1]
+
+            big_data['Harmontown']['episodes'].append({
+                "episode_id": episode_id,
+                "episode_title": episode_title,
+                "chunks": []
+            })
+
+    print(big_data)
+
+create_eps_in_json('./sound/split-audio')

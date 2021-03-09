@@ -23,4 +23,4 @@ def mp3_to_wav(pathname):
             mp3_sound.export("{0}.wav".format(name), format="wav")
 
 # mp3_to_wav(path)
-mp3_to_wav(os.environ.get("directory-of-mp3-test"))
+mp3_to_wav(os.environ.get("directory-of-test"))

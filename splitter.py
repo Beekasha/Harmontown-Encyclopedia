@@ -43,11 +43,11 @@ def create_new_directory(pathname):
 
         # protects against same label
     try:
-        os.mkdir(f'./sound/split-test/{label}')
+        os.mkdir(f'./sound/split-audio/{label}')
     except OSError as error:
         print(error)
         # appends a '2' to the file if the label already exists (aka Denver and KC)
-        os.mkdir(f'./sound/split-test/{label}2')
+        os.mkdir(f'./sound/split-audio/{label}2')
 
 
 
@@ -100,7 +100,7 @@ def chop_wav(pathname):
 # # must make folders first
 # chop_wav('../htown/S1Test/20121022-Back To The Future Part Kush (10.01.12).wav')
 def split_all_wav(directory):
-    # create_all_directories()
+    create_all_directories()
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         if filename.endswith(".wav"): 
